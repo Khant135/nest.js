@@ -9,7 +9,7 @@ export class PostService {
   constructor(private prisma: PrismaService) {}
 
   async create(createPostDto: CreatePostDto): Promise<Post> {
-    return this.prisma.post.create({
+    return await this.prisma.post.create({
       data: createPostDto,
       include: {
         author: {
@@ -24,7 +24,7 @@ export class PostService {
   }
 
   async findAll(): Promise<Post[]> {
-    return this.prisma.post.findMany({
+    return await this.prisma.post.findMany({
       select: {
         id: true,
         title: true,
@@ -65,7 +65,7 @@ export class PostService {
   }
 
   async update(id: number, updatePostDto: UpdatePostDto): Promise<Post> {
-    return this.prisma.post.update({
+    return await this.prisma.post.update({
       where: { id: id },
       data: updatePostDto,
       include: {
@@ -81,7 +81,7 @@ export class PostService {
   }
 
   async remove(id: number): Promise<Post> {
-    return this.prisma.post.delete({
+    return await this.prisma.post.delete({
       where: { id },
       select: {
         id: true,
